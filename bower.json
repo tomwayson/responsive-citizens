@@ -1,7 +1,7 @@
 {
-  "name": "dojo-bootstrap-map-js",
-  "version": "3.2.1",
-  "homepage": "https://github.com/Esri/dojo-bootstrap-map-js",
+  "name": "responsive-citizens",
+  "version": "0.0.1",
+  "homepage": "https://github.com/tomwayson/responsive-citizens",
   "authors": [
     "Tom Wayson <twayson@esri.com>"
   ],

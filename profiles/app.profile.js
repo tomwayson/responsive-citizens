@@ -36,7 +36,7 @@ var profile = {
   // build profile.
   packages: [
     // Using a string as a package is shorthand for `{ name: 'app', location: 'app' }`
-    'citizenRequest',
+    'app',
     'dgrid',
     'dijit',
     'dojo',
@@ -76,7 +76,7 @@ var profile = {
       customBase: true,
       include: [
         // include the app
-        'citizenRequest/main',
+        'app/main',
         // dpendencies of esri/map that will be requested if not included
         'dojox/gfx/path',
         'dojox/gfx/svg',
@@ -97,6 +97,8 @@ var profile = {
     // does not need to be explicitly defined in the `include` array.
     // 'app/main': {}
   },
+
+  useSourceMaps: false,
 
   // Providing hints to the build system allows code to be conditionally removed on a more granular level than simple
   // module dependencies can allow. This is especially useful for creating tiny mobile builds. Keep in mind that dead

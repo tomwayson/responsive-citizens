@@ -122,11 +122,17 @@ module.exports = function(grunt) {
         }
       }
     },
+    copy: {
+      build: {
+        src: 'src/dashboard.html',
+        dest: 'dist/dashboard.html'
+      }
+    },
     'gh-pages': {
       options: {
         base: 'src'
       },
-      src: ['app/**', 'index.html']
+      src: ['app/**', 'index.html', 'dashboard.html']
     }
   });
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -138,6 +144,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-dojo');
   grunt.loadNpmTasks('grunt-processhtml');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('default', ['serve']);
 
@@ -155,7 +162,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('slurp', ['clean:slurp', 'esri_slurp:dev']);
 
-  grunt.registerTask('build', ['jshint', 'clean:build', 'dojo', 'processhtml']);
+  grunt.registerTask('build', ['jshint', 'clean:build', 'dojo', 'processhtml', 'copy:build']);
 
   grunt.registerTask('deploy', ['gh-pages']);
 };
