@@ -9,6 +9,7 @@ define([
   'esri/InfoTemplate',
   'esri/graphic',
   'esri/dijit/Geocoder',
+  'esri/dijit/LocateButton',
   'esri/dijit/Legend',
 
   'bootstrap-map-js/js/bootstrapmap',
@@ -21,7 +22,7 @@ define([
   'dojo/domReady!'
 ], function(
   query, dom, domClass, domStyle, domAttr,
-  FeatureLayer, InfoTemplate, Graphic, Geocoder, Legend,
+  FeatureLayer, InfoTemplate, Graphic, Geocoder, LocateButton, Legend,
   BootstrapMap
 ) {
   'use strict';
@@ -121,6 +122,9 @@ define([
       'class': 'geocoder'
     }, 'geocoder');
     app.geocoder.startup();
+    app.locateButton = new LocateButton({
+      map: app.map
+    }, 'locateButton');
     app.legend = new Legend({
       map: app.map,
       layerInfos: [{
