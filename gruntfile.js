@@ -129,10 +129,18 @@ module.exports = function(grunt) {
       }
     },
     'gh-pages': {
-      options: {
-        base: 'src'
+      src: {
+        options: {
+          base: 'src'
+        },
+        src: ['index.html', 'dashboard.html', 'app/**']
       },
-      src: ['app/**', 'index.html', 'dashboard.html']
+      dist: {
+        options: {
+          base: 'dist'
+        },
+        src: ['index.html', 'dashboard.html', 'app/css/**', 'dojo/dojo.js', 'dojo/resources/**', 'esri/images/**', 'esri/dijit/images/**', 'esri/dijit/font/**']
+      }
     }
   });
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -163,6 +171,4 @@ module.exports = function(grunt) {
   grunt.registerTask('slurp', ['clean:slurp', 'esri_slurp:dev']);
 
   grunt.registerTask('build', ['jshint', 'clean:build', 'dojo', 'processhtml', 'copy:build']);
-
-  grunt.registerTask('deploy', ['gh-pages']);
 };
