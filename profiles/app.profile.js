@@ -36,7 +36,7 @@ var profile = {
   // build profile.
   packages: [
     // Using a string as a package is shorthand for `{ name: 'app', location: 'app' }`
-    'app',
+    'citizenRequest',
     'dgrid',
     'dijit',
     'dojo',
@@ -76,7 +76,7 @@ var profile = {
       customBase: true,
       include: [
         // include the app
-        'app/main',
+        'citizenRequest/main',
         // dpendencies of esri/map that will be requested if not included
         'dojox/gfx/path',
         'dojox/gfx/svg',

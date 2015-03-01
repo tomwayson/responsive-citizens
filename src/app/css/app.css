@@ -3,20 +3,20 @@ body {
   padding-top: 51px;
 }
 
-.navbar-toggle-icon {
-  padding: 6px 10px;
+
+a.sidebar-toggle-button {
+  margin-left: 10px;
 }
 
-.navbar-toggle-left {
-  float: left;
-  margin-left: 15px;
-  margin-right: 5px;
+/*may need to override styles of logo image to fit in navbar*/
+/*
+.navbar-brand>img {
+  height: 32px;
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-top: -5px;
 }
-
-.navbar-toggle .glyphicon {
-  color: #fff;
-  font-size: 14px;
-}
+*/
 
 /* no margins or padding around map */
 .container-map, .container-map .col-map {
@@ -30,6 +30,20 @@ body {
 }
 
 /* map widgets */
+.report-btn-group {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 30;
+}
+.start-edit-alert {
+  position: absolute;
+  margin: 0;
+  bottom: 30px;
+  left: 10px;
+  z-index: 40;
+}
+
 .HomeButton {
   position: absolute;
   top: 15px;
@@ -50,12 +64,12 @@ body {
   display: block;
   position: absolute;
   z-index: 30;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 10px;
 }
 
 .esriSimpleSliderBR {
-  right: 15px;
+  right: 10px;
 }
 
 /* override defaults set in bootstrapmap.css */
@@ -104,7 +118,7 @@ body {
   /* don't wrap title */
   a.navbar-brand {
     white-space: nowrap;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   /* hide scalebar */
