@@ -13,15 +13,8 @@
 
     <!-- dependency styles from CDN -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <!-- build:remove -->
-    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.12/esri/css/esri.css">
-    <link rel="stylesheet" type="text/css" href="//esri.github.io/bootstrap-map-js/dist/css/bootstrapmap.min.css">
-    <!-- /build -->
-
     <!-- get app/built styles locally -->
-    <!-- build:[href] app/css/main.css -->
-    <link rel="stylesheet" href="app/css/app.css">
-    <!-- /build -->
+    <link rel="stylesheet" href="app/css/main.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -176,32 +169,7 @@
       </div>
     </div>
 
-    <!-- build:remove -->
-    <!-- configure Dojo, load Esri JS, and kick off app -->
-    <script>
-      window.dojoConfig = {
-        async: true,
-        // load dependency packages from CDN instead of locally
-        packages: [
-          {
-            name: 'app',
-            location: window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/app'
-          }, {
-            name: 'dojo-bootstrap',
-            location: '//rawgit.com/xsokev/Dojo-Bootstrap/master'
-          }, {
-            name: 'bootstrap-map-js',
-            location: '//esri.github.io/bootstrap-map-js/src/'
-          }
-        ]
-      };
-    </script>
-    <!-- NOTE: we're not using compact b/c we're using esri/dijit -->
-    <!-- /build -->
-
-    <!-- build:[src] dojo/dojo.js -->
-    <script src="//js.arcgis.com/3.12"></script>
-    <!-- /build -->
+    <script src="dojo/dojo.js"></script>
 
     <script>require(['app/main']);</script>
   </body>
