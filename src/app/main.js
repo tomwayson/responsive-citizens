@@ -14,72 +14,36 @@ define([
 
   'bootstrap-map-js/js/bootstrapmap',
 
+  './map',
+
   'dojo-bootstrap/Collapse',
   'dojo-bootstrap/Dropdown',
   'dojo-bootstrap/Modal',
   'dojo-bootstrap/Alert',
-
   'dojo/domReady!'
 ], function(
   query, dom, domClass, domStyle, domAttr,
   FeatureLayer, InfoTemplate, Graphic, Geocoder, LocateButton, Legend,
-  BootstrapMap
+  BootstrapMap,
+  mapUtils
 ) {
   'use strict';
 
   // app configuration
-  var config = {
-    mapOptions: {
-      basemap:'topo',
-      center:[-117.1825, 34.0547],
-      zoom:14,
-      sliderPosition: 'bottom-right'
-    },
-    citizenRequestLayerUrl: 'http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0',
-    infoTemplate: {
-      title: '<b>Request ${objectid}</b>',
-      content: '<span class="infoTemplateContentRowLabel">Date: </span>' +
-          '<span class="infoTemplateContentRowItem">${requestdate:DateFormat}</span><br><span class="infoTemplateContentRowLabel">Phone: </span>' +
-          '<span class="infoTemplateContentRowItem">${phone:formatPhoneNumber}</span><br><span class="infoTemplateContentRowLabel">Name: </span>' +
-          '<span class="infoTemplateContentRowItem">${name}</span><br><span class="infoTemplateContentRowLabel">Severity: </span>' +
-          '<span class="infoTemplateContentRowItem">${severity:severityDomainLookup}</span><br><span class="infoTemplateContentRowLabel">Type: </span>' +
-          '<span class="infoTemplateContentRowItem">${requesttype:requestTypeDomainLookup}</span><br><span class="infoTemplateContentRowLabel">Comments: </span>' +
-          '<span class="infoTemplateContentRowItem">${comment}</span>'
-    }
-  };
+  //var config = mapUtils.config;
 
   // app globals
   var app = {};
+  // feature
+  app.citizenRequestLayer = mapUtils.addFeatureLayer();
   app.collapseMenuToggleButton = dom.byId('collapseToggleButton');
   app.startEditAlert = dom.byId('startEditAlert');
   app.sidebar = dom.byId('sidebar');
   app.attributesModal = query('#attributesModal');
   app.requestTypeSelect = query('#attributesModal [name="requesttype"]')[0];
   // TODO: get these from the feature layer on load
-  app.severityFieldDomainCodedValuesDict = {
-    '0': 'General Nuisance',
-    '1': 'Important To Resolve Soon',
-    '2': 'Critical Issue'
-  };
-  app.requestTypeFieldDomainCodedValuesDict = {
-    '0': 'Abandoned Vehicle',
-    '1': 'Animal Services',
-    '2': 'Driveway Infraction',
-    '3': 'Flooding',
-    '4': 'Graffiti Removal',
-    '5': 'Homeless Nuisance',
-    '6': 'Illegal Dumping',
-    '7': 'Parking Violation',
-    '8': 'Plant/Tree Complaint',
-    '9': 'Pothole Obstruction',
-    '10': 'Roadway Danger',
-    '11': 'Sidewalk Danger',
-    '12': 'Streetlight Broken',
-    '13': 'Street Sign Missing/Damaged',
-    '14': 'Trash Removal',
-    '15': 'Water Leak',
-    '16': 'Yard Waste Removal'
-  };
+  app.severityFieldDomainCodedValuesDict = mapUtils.severityFieldDomainCodedValuesDict;
+  app.requestTypeFieldDomainCodedValuesDict = mapUtils.requestTypeFieldDomainCodedValuesDict;
 
   // NOTE: popup formatting functions must be globals
   window.severityDomainLookup = function (value, key, data){
@@ -105,7 +69,7 @@ define([
 
   // initialize the map and add the feature layer
   // and initialize map widgets
-  var initMap = function() {
+  /*var initMap = function() {
     app.map = BootstrapMap.create('map', config.mapOptions);
     app.citizenRequestLayer = new FeatureLayer(config.citizenRequestLayerUrl, {
       mode: FeatureLayer.MODE_ONEDEMAND,
@@ -134,7 +98,7 @@ define([
     }, 'legend');
     app.legend.startup();
     // TODO: other widgets, etc
-  };
+  };*/
 
   // hide nav dropdown on mobile
   var hideDropdownNav = function(e) {
@@ -256,8 +220,23 @@ define([
   };
 
   // finally, start up the app!
+  //init Map;
+  app.map = BootstrapMap.create('map', mapUtils.config.mapOptions);
+  app.map.addLayer(app.citizenRequestLayer);
+  //add legend
+  app.legend = mapUtils.addLegend(app);
+  app.legend.startup();
+  //add geocoder
+  app.geocoder = mapUtils.addGeocoder(app);
+  app.geocoder.startup();
+  //add locationButton
+  app.locationButton = mapUtils.addLocationButton(app);
+  app.locationButton.startup();
+
   initAttributeForm();
-  initMap();
+  //map_dojo.initMap();
+  
+  //alert(map_dojo.text);
   initEvents();
 
   return app;
