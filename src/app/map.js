@@ -64,17 +64,20 @@ define([
                 });
 		  			return citizenRequestLayer;
 		  		},	
-		  		addLegend: function(app){
+		  		addLegend: function(app, location){
+		  				  location = typeof location !== 'undefined' ? location : 'legend';
 			  			  var legend = new Legend({
 						        map: app.map,
 						        layerInfos: [{
 						        title: 'Citizen Requests',
 						        layer: app.citizenRequestLayer
 						      }]
-						    }, 'legend');
+						    }, location);
+
 			  			return legend;
 		  		},
-		  		addGeocoder:function(app){
+		  		addGeocoder:function(app, location){
+		  			location = typeof location !== 'undefined' ? location : 'geocoder';
 		  			var geocoder =  new Geocoder({
 						      map: app.map,
 						      autoComplete: true,
@@ -82,13 +85,14 @@ define([
 						        placeholder: 'Address or Location'
 						      },
 						      'class': 'geocoder'
-						    }, 'geocoder');
+						    }, location);
 		  				return geocoder;
 		  		},
-		  		addLocationButton:function(app){
+		  		addLocationButton:function(app, location){
+		  			location = typeof location !== 'undefined' ? location : 'locationButton';
 		  			var locateButton = new LocateButton({
       						map: app.map
-    						}, 'locateButton');
+    						}, location);
 		  			return locateButton;
 		  		}
 		  	};
