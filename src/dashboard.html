@@ -154,16 +154,19 @@
   <script>
     require([
       'chartjs/Chart',
+
       'app/map',
+      'app/config',
+
       'dojo/domReady!'
-    ], function(Chart, mapUtils) {
+    ], function(Chart, mapUtils, config) {
 
       var severityChart, // pie chart
         requestTypeChart; // bar chart
 
       // TODO: get these from the feature layer on load
-      var severityFieldDomainCodedValuesDict = mapUtils.severityFieldDomainCodedValuesDict;
-      var requestTypeFieldDomainCodedValuesDict = mapUtils.requestTypeFieldDomainCodedValuesDict;
+      var severityFieldDomainCodedValuesDict = config.severityFieldDomainCodedValuesDict;
+      var requestTypeFieldDomainCodedValuesDict = config.requestTypeFieldDomainCodedValuesDict;
 
       // override chart defaults
       Chart.defaults.global.responsive = true;

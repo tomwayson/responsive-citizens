@@ -8,6 +8,7 @@ define([
   'esri/graphic',
 
   './map',
+  './config',
 
   'dojo-bootstrap/Collapse',
   'dojo-bootstrap/Dropdown',
@@ -17,7 +18,7 @@ define([
 ], function(
   query, dom, domClass, domStyle, domAttr,
   Graphic,
-  mapUtils
+  mapUtils, config
 ) {
   'use strict';
 
@@ -31,8 +32,8 @@ define([
   app.attributesModal = query('#attributesModal');
   app.requestTypeSelect = query('#attributesModal [name="requesttype"]')[0];
   // TODO: get these from the feature layer on load
-  app.severityFieldDomainCodedValuesDict = mapUtils.severityFieldDomainCodedValuesDict;
-  app.requestTypeFieldDomainCodedValuesDict = mapUtils.requestTypeFieldDomainCodedValuesDict;
+  app.severityFieldDomainCodedValuesDict = config.severityFieldDomainCodedValuesDict;
+  app.requestTypeFieldDomainCodedValuesDict = config.requestTypeFieldDomainCodedValuesDict;
 
   // NOTE: popup formatting functions must be globals
   window.severityDomainLookup = function (value, key, data){
