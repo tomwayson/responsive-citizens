@@ -1,23 +1,15 @@
 define([
 	'esri/layers/FeatureLayer',
-
-	'bootstrap-map-js/js/bootstrapmap',
-
 	'esri/InfoTemplate',
 	'esri/dijit/Geocoder',
 	'esri/dijit/Legend',
-	'esri/dijit/LocateButton'
-], function(FeatureLayer, BootstrapMap, InfoTemplate, Geocoder, Legend, LocateButton){
+	'esri/dijit/LocateButton',
+	'bootstrap-map-js/js/bootstrapmap'
+], function(FeatureLayer,InfoTemplate, Geocoder, Legend, LocateButton,
+			BootstrapMap){
 		  return{
-		  		config: {
-				    mapOptions: {
-				      basemap:'topo',
-				      center:[-117.1825, 34.0547],
-				      zoom:14,
-				      sliderPosition: 'bottom-right'
-				    },
-			    	citizenRequestLayerUrl: 'http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0',
-				    infoTemplate: {
+			    citizenRequestLayerUrl: 'http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0',
+				infoTemplate: {
 				      title: '<b>Request ${objectid}</b>',
 				      content: '<span class="infoTemplateContentRowLabel">Date: </span>' +
 				          '<span class="infoTemplateContentRowItem">${requestdate:DateFormat}</span><br><span class="infoTemplateContentRowLabel">Phone: </span>' +
@@ -26,9 +18,7 @@ define([
 				          '<span class="infoTemplateContentRowItem">${severity:severityDomainLookup}</span><br><span class="infoTemplateContentRowLabel">Type: </span>' +
 				          '<span class="infoTemplateContentRowItem">${requesttype:requestTypeDomainLookup}</span><br><span class="infoTemplateContentRowLabel">Comments: </span>' +
 				          '<span class="infoTemplateContentRowItem">${comment}</span>'
-				    }
-  				},
-
+				      },
 		  		severityFieldDomainCodedValuesDict: 
 		  			 {   
 		  				'0': 'General Nuisance',
@@ -57,9 +47,9 @@ define([
 		  			},
 
 		  		addFeatureLayer: function(){
-		  			var citizenRequestLayer = new FeatureLayer(this.config.citizenRequestLayerUrl, {
+		  			var citizenRequestLayer = new FeatureLayer(this.citizenRequestLayerUrl, {
                     mode: FeatureLayer.MODE_ONEDEMAND,
-                    infoTemplate: new InfoTemplate(this.config.infoTemplate),
+                    infoTemplate: new InfoTemplate(this.infoTemplate),
                     outFields: ['*']
                 });
 		  			return citizenRequestLayer;
@@ -89,6 +79,7 @@ define([
 		  				geocoder.startup();
 		  				return geocoder;
 		  		},
+
 		  		addLocationButton:function(map, location){
 		  			location = typeof location !== 'undefined' ? location : 'locateButton';
 		  			var locateButton = new LocateButton({
@@ -96,6 +87,18 @@ define([
     						}, location);
 		  			locateButton.startup();
 		  			return locateButton;
+		  		},
+
+		  		createMap: function(location, sliderPosition){
+		  			location = typeof location !== 'undefined' ? location : 'map';
+		  			var newMap = BootstrapMap.create(location, {
+          									basemap:'topo',
+              								center:[-117.1825, 34.0547],
+              								zoom:14,
+              								sliderPosition: sliderPosition
+        									});
+		  			return newMap;
 		  		}
+
 		  	};
 });

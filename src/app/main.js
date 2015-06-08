@@ -59,6 +59,7 @@ define([
     app.requestTypeSelect.innerHTML = options.join('');
   };
 
+  
   // hide nav dropdown on mobile
   var hideDropdownNav = function(e) {
     if (query('.navbar-collapse.in').length > 0) {
@@ -180,7 +181,7 @@ define([
 
   // finally, start up the app!
   //init Map;
-  app.map = BootstrapMap.create('map', mapUtils.config.mapOptions);
+  app.map = mapUtils.createMap();
   app.map.addLayer(app.citizenRequestLayer);
   //add legend
   app.legend = mapUtils.addLegend(app);
@@ -190,9 +191,6 @@ define([
   app.locationButton = mapUtils.addLocationButton(app);
 
   initAttributeForm();
-  //map_dojo.initMap();
-  
-  //alert(map_dojo.text);
   initEvents();
 
   return app;
