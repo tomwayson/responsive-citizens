@@ -7,8 +7,6 @@ define([
 
   'esri/graphic',
 
-  'bootstrap-map-js/js/bootstrapmap',
-
   './map',
 
   'dojo-bootstrap/Collapse',
@@ -19,7 +17,6 @@ define([
 ], function(
   query, dom, domClass, domStyle, domAttr,
   Graphic,
-  BootstrapMap,
   mapUtils
 ) {
   'use strict';
@@ -181,7 +178,7 @@ define([
 
   // finally, start up the app!
   //init Map;
-  app.map = mapUtils.createMap();
+  app.map = mapUtils.createMap('map', 'bottom-right');
   app.map.addLayer(app.citizenRequestLayer);
   //add legend
   app.legend = mapUtils.addLegend(app);

@@ -4,8 +4,9 @@ define([
 	'esri/dijit/Geocoder',
 	'esri/dijit/Legend',
 	'esri/dijit/LocateButton',
+	
 	'bootstrap-map-js/js/bootstrapmap'
-], function(FeatureLayer,InfoTemplate, Geocoder, Legend, LocateButton,
+], function(FeatureLayer, InfoTemplate, Geocoder, Legend, LocateButton,
 			BootstrapMap){
 		  return{
 			    citizenRequestLayerUrl: 'http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0',
