@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation1</span>
+          <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -153,13 +153,16 @@
 
   <script>
     require([
-      'esri/layers/FeatureLayer',
       'esri/InfoTemplate',
+
       'bootstrap-map-js/js/bootstrapmap',
+
       'chartjs/Chart',
+
       'app/map',
+
       'dojo/domReady!'
-    ], function(FeatureLayer, InfoTemplate, BootstrapMap, Chart, mapUtils) {
+    ], function(InfoTemplate, BootstrapMap, Chart, mapUtils) {
 
       var severityChart, // pie chart
         requestTypeChart; // bar chart

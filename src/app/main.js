@@ -5,12 +5,7 @@ define([
   'dojo/dom-style',
   'dojo/dom-attr',
 
-  'esri/layers/FeatureLayer',
-  'esri/InfoTemplate',
   'esri/graphic',
-  'esri/dijit/Geocoder',
-  'esri/dijit/LocateButton',
-  'esri/dijit/Legend',
 
   'bootstrap-map-js/js/bootstrapmap',
 
@@ -23,14 +18,11 @@ define([
   'dojo/domReady!'
 ], function(
   query, dom, domClass, domStyle, domAttr,
-  FeatureLayer, InfoTemplate, Graphic, Geocoder, LocateButton, Legend,
+  Graphic,
   BootstrapMap,
   mapUtils
 ) {
   'use strict';
-
-  // app configuration
-  //var config = mapUtils.config;
 
   // app globals
   var app = {};
@@ -66,39 +58,6 @@ define([
     }
     app.requestTypeSelect.innerHTML = options.join('');
   };
-
-  // initialize the map and add the feature layer
-  // and initialize map widgets
-  /*var initMap = function() {
-    app.map = BootstrapMap.create('map', config.mapOptions);
-    app.citizenRequestLayer = new FeatureLayer(config.citizenRequestLayerUrl, {
-      mode: FeatureLayer.MODE_ONEDEMAND,
-      infoTemplate: new InfoTemplate(config.infoTemplate),
-      outFields: ['*']
-    });
-    app.map.addLayer(app.citizenRequestLayer);
-    app.geocoder = new Geocoder({
-      map: app.map,
-      autoComplete: true,
-      arcgisGeocoder: {
-        placeholder: 'Address or Location'
-      },
-      'class': 'geocoder'
-    }, 'geocoder');
-    app.geocoder.startup();
-    app.locateButton = new LocateButton({
-      map: app.map
-    }, 'locateButton');
-    app.legend = new Legend({
-      map: app.map,
-      layerInfos: [{
-        title: 'Citizen Requests',
-        layer: app.citizenRequestLayer
-      }]
-    }, 'legend');
-    app.legend.startup();
-    // TODO: other widgets, etc
-  };*/
 
   // hide nav dropdown on mobile
   var hideDropdownNav = function(e) {
@@ -225,13 +184,10 @@ define([
   app.map.addLayer(app.citizenRequestLayer);
   //add legend
   app.legend = mapUtils.addLegend(app);
-  app.legend.startup();
   //add geocoder
   app.geocoder = mapUtils.addGeocoder(app);
-  app.geocoder.startup();
   //add locationButton
   app.locationButton = mapUtils.addLocationButton(app);
-  app.locationButton.startup();
 
   initAttributeForm();
   //map_dojo.initMap();

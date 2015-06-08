@@ -64,35 +64,37 @@ define([
                 });
 		  			return citizenRequestLayer;
 		  		},	
-		  		addLegend: function(app, location){
+		  		addLegend: function(map, location){
 		  				  location = typeof location !== 'undefined' ? location : 'legend';
 			  			  var legend = new Legend({
-						        map: app.map,
+						        map: map.map,
 						        layerInfos: [{
 						        title: 'Citizen Requests',
-						        layer: app.citizenRequestLayer
+						        layer: map.citizenRequestLayer
 						      }]
 						    }, location);
-
+			  			legend.startup();  	
 			  			return legend;
 		  		},
-		  		addGeocoder:function(app, location){
+		  		addGeocoder:function(map, location){
 		  			location = typeof location !== 'undefined' ? location : 'geocoder';
 		  			var geocoder =  new Geocoder({
-						      map: app.map,
+						      map: map.map,
 						      autoComplete: true,
 						      arcgisGeocoder: {
 						        placeholder: 'Address or Location'
 						      },
 						      'class': 'geocoder'
 						    }, location);
+		  				geocoder.startup();
 		  				return geocoder;
 		  		},
-		  		addLocationButton:function(app, location){
-		  			location = typeof location !== 'undefined' ? location : 'locationButton';
+		  		addLocationButton:function(map, location){
+		  			location = typeof location !== 'undefined' ? location : 'locateButton';
 		  			var locateButton = new LocateButton({
-      						map: app.map
+      						map: map.map
     						}, location);
+		  			locateButton.startup();
 		  			return locateButton;
 		  		}
 		  	};
