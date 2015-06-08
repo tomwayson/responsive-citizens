@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
+          <span class="sr-only">Toggle navigation1</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -137,9 +137,12 @@
   <!-- Esri rocks -->
   <script type="text/javascript">
     window.dojoConfig = {
-      packages: [{
-        name: 'bootstrap-map',
-        location: '//esri.github.com/bootstrap-map-js/src/js'
+      packages: [          {
+        name: 'app',
+        location: window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/app'
+      }, {
+        name: 'bootstrap-map-js',
+        location: '//esri.github.io/bootstrap-map-js/src/'
       }, {
         name: 'chartjs',
         location: '//www.chartjs.org/assets'
@@ -150,43 +153,17 @@
 
   <script>
     require([
-      'esri/layers/FeatureLayer',
-      'esri/InfoTemplate',
-      'bootstrap-map/bootstrapmap',
       'chartjs/Chart',
+      'app/map',
       'dojo/domReady!'
-    ], function(FeatureLayer, InfoTemplate, BootstrapMap, Chart) {
+    ], function(Chart, mapUtils) {
 
       var severityChart, // pie chart
         requestTypeChart; // bar chart
 
-      var citizenRequestLayerUrl = 'http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0';
-
       // TODO: get these from the feature layer on load
-      var severityFieldDomainCodedValuesDict = {
-        '0': 'General Nuisance',
-        '1': 'Important To Resolve Soon',
-        '2': 'Critical Issue'
-      };
-      var requestTypeFieldDomainCodedValuesDict = {
-        '0': 'Abandoned Vehicle',
-        '1': 'Animal Services',
-        '2': 'Driveway Infraction',
-        '3': 'Flooding',
-        '4': 'Graffiti Removal',
-        '5': 'Homeless Nuisance',
-        '6': 'Illegal Dumping',
-        '7': 'Parking Violation',
-        '8': 'Plant/Tree Complaint',
-        '9': 'Pothole Obstruction',
-        '10': 'Roadway Danger',
-        '11': 'Sidewalk Danger',
-        '12': 'Streetlight Broken',
-        '13': 'Street Sign Missing/Damaged',
-        '14': 'Trash Removal',
-        '15': 'Water Leak',
-        '16': 'Yard Waste Removal'
-      };
+      var severityFieldDomainCodedValuesDict = mapUtils.severityFieldDomainCodedValuesDict;
+      var requestTypeFieldDomainCodedValuesDict = mapUtils.requestTypeFieldDomainCodedValuesDict;
 
       // override chart defaults
       Chart.defaults.global.responsive = true;
@@ -198,45 +175,40 @@
       // initialize map and wire it up to the charts
       function initMap() {
         // create responsive map
-        var map = BootstrapMap.create('map', {
-          basemap:'topo',
-          center:[-117.1825, 34.0547],
-          zoom:14
-        });
-
-        // set up feature layer popup
-        var featureLayerInfoTemplate = new InfoTemplate();
-        featureLayerInfoTemplate.setTitle('<b>Request ${objectid}</b>');
-        var infoTemplateContent = '<span class="infoTemplateContentRowLabel">Date: </span>' +
-          '<span class="infoTemplateContentRowItem">${requestdate:DateFormat}</span><br><span class="infoTemplateContentRowLabel">Phone: </span>' +
-          '<span class="infoTemplateContentRowItem">${phone:formatPhoneNumber}</span><br><span class="infoTemplateContentRowLabel">Name: </span>' +
-          '<span class="infoTemplateContentRowItem">${name}</span><br><span class="infoTemplateContentRowLabel">Severity: </span>' +
-          '<span class="infoTemplateContentRowItem">${severity:severityDomainLookup}</span><br><span class="infoTemplateContentRowLabel">Type: </span>' +
-          '<span class="infoTemplateContentRowItem">${requesttype:requestTypeDomainLookup}</span><br><span class="infoTemplateContentRowLabel">Comments: </span>' +
-          '<span class="infoTemplateContentRowItem">${comment}</span>';
-        featureLayerInfoTemplate.setContent(infoTemplateContent);
-        // NOTE: popup formatting functions must be globals
-        window.severityDomainLookup = function (value, key, data){
-          return severityFieldDomainCodedValuesDict[value];
-        };
-        window.requestTypeDomainLookup = function (value, key, data){
-          return requestTypeFieldDomainCodedValuesDict[value];
-        };
-        window.formatPhoneNumber = function (value, key, data){
-          return value ? '<a href=\'tel:' + value + '\'>' + value + '</a>' : '';
-        };
-        var citizenRequestLayer = new FeatureLayer(citizenRequestLayerUrl, {
-          mode: FeatureLayer.MODE_ONEDEMAND,
-          infoTemplate: featureLayerInfoTemplate,
-          outFields: ['*']
-        });
+        var map = mapUtils.createMap();
+        var citizenRequestLayer = mapUtils.addFeatureLayer();
         citizenRequestLayer.on('update-end', function(layer) {
           // update charts when feature layer is refreshed
           // (i.e. after map pan/zoom)
           updateCharts(citizenRequestLayer, map.extent);
         });
         map.addLayer(citizenRequestLayer);
+
+        // set up feature layer popup
+        /*var featureLayerInfoTemplate = new InfoTemplate();
+        featureLayerInfoTemplate.setTitle('mapUtils.config.infoTemplate.title');
+        var infoTemplateContent = mapUtils.config.infoTemplate.content;
+        featureLayerInfoTemplate.setContent(infoTemplateContent);
+        // NOTE: popup formatting functions must be globals
+        
+        var citizenRequestLayer = mapUtils.addFeatureLayer();
+        citizenRequestLayer.on('update-end', function(layer) {
+          // update charts when feature layer is refreshed
+          // (i.e. after map pan/zoom)
+          updateCharts(citizenRequestLayer, map.extent);
+        });
+        map.addLayer(citizenRequestLayer);*/
       }
+
+      window.severityDomainLookup = function (value, key, data){
+          return severityFieldDomainCodedValuesDict[value];
+        };
+      window.requestTypeDomainLookup = function (value, key, data){
+          return requestTypeFieldDomainCodedValuesDict[value];
+        };
+      window.formatPhoneNumber = function (value, key, data){
+          return value ? '<a href=\'tel:' + value + '\'>' + value + '</a>' : '';
+        };
 
       // refresh chart based on feature layer stats
       function updateCharts(featureLayer, extent) {
