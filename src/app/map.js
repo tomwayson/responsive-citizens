@@ -58,11 +58,7 @@ define([
 		  		addLegend: function(map, location){
 		  				  location = typeof location !== 'undefined' ? location : 'legend';
 			  			  var legend = new Legend({
-						        map: map.map,
-						        layerInfos: [{
-						        title: 'Citizen Requests',
-						        layer: map.citizenRequestLayer
-						      }]
+						        map: map
 						    }, location);
 			  			legend.startup();  	
 			  			return legend;
@@ -70,7 +66,7 @@ define([
 		  		addGeocoder:function(map, location){
 		  			location = typeof location !== 'undefined' ? location : 'geocoder';
 		  			var geocoder =  new Geocoder({
-						      map: map.map,
+						      map: map,
 						      autoComplete: true,
 						      arcgisGeocoder: {
 						        placeholder: 'Address or Location'
@@ -84,7 +80,7 @@ define([
 		  		addLocationButton:function(map, location){
 		  			location = typeof location !== 'undefined' ? location : 'locateButton';
 		  			var locateButton = new LocateButton({
-      						map: map.map
+      						map: map
     						}, location);
 		  			locateButton.startup();
 		  			return locateButton;

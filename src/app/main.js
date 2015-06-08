@@ -181,11 +181,11 @@ define([
   app.map = mapUtils.createMap('map', 'bottom-right');
   app.map.addLayer(app.citizenRequestLayer);
   //add legend
-  app.legend = mapUtils.addLegend(app);
+  app.legend = mapUtils.addLegend(app.map);
   //add geocoder
-  app.geocoder = mapUtils.addGeocoder(app);
+  app.geocoder = mapUtils.addGeocoder(app.map);
   //add locationButton
-  app.locationButton = mapUtils.addLocationButton(app);
+  app.locationButton = mapUtils.addLocationButton(app.map);
 
   initAttributeForm();
   initEvents();
