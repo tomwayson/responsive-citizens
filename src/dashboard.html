@@ -179,6 +179,7 @@
       function initMap() {
         // create responsive map
         var map = mapUtils.createMap();
+        // set up feature layer popup
         var citizenRequestLayer = mapUtils.addFeatureLayer();
         citizenRequestLayer.on('update-end', function(layer) {
           // update charts when feature layer is refreshed
@@ -186,21 +187,6 @@
           updateCharts(citizenRequestLayer, map.extent);
         });
         map.addLayer(citizenRequestLayer);
-
-        // set up feature layer popup
-        /*var featureLayerInfoTemplate = new InfoTemplate();
-        featureLayerInfoTemplate.setTitle('mapUtils.config.infoTemplate.title');
-        var infoTemplateContent = mapUtils.config.infoTemplate.content;
-        featureLayerInfoTemplate.setContent(infoTemplateContent);
-        // NOTE: popup formatting functions must be globals
-        
-        var citizenRequestLayer = mapUtils.addFeatureLayer();
-        citizenRequestLayer.on('update-end', function(layer) {
-          // update charts when feature layer is refreshed
-          // (i.e. after map pan/zoom)
-          updateCharts(citizenRequestLayer, map.extent);
-        });
-        map.addLayer(citizenRequestLayer);*/
       }
 
       window.severityDomainLookup = function (value, key, data){

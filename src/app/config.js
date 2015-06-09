@@ -52,7 +52,6 @@ define([], function() {
   //Geocoder Options
     geocoderOptions:
           {
-            map: null,
             autoComplete: true,
             arcgisGeocoder: {
                 placeholder: 'Address or Location'
@@ -62,12 +61,10 @@ define([], function() {
     //Legend Options      
     legendOptions:
           {
-            map: null
           },
     //locate button options      
     locateButtonOptions:
           {
-            map: null
           }     
   };
 
