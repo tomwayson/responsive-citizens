@@ -1,4 +1,4 @@
-define(['esri/InfoTemplate'], function(InfoTemplate) {
+define([], function() {
   return {
     // Feature Service 
     citizenRequestLayerUrl: 'http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0',
@@ -41,7 +41,6 @@ define(['esri/InfoTemplate'], function(InfoTemplate) {
               '15': 'Water Leak',
               '16': 'Yard Waste Removal'
             },
-
   //Map Options
     mapOptions:
           {

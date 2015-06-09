@@ -41,7 +41,6 @@ define([
 		  			locateButton.startup();
 		  			return locateButton;
 		  		},
-
 		  		createMap: function(location, sliderPosition){
 		  			location = typeof location !== 'undefined' ? location : 'map';
 		  			config.mapOptions.sliderPosition = sliderPosition;
