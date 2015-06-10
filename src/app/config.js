@@ -1,117 +1,71 @@
-define(['esri/InfoTemplate'], function(InfoTemplate) {
+define([], function() {
   return {
-
-    portalUrl: 'http://www.arcgis.com',
-
-    mapControls: {
-      // **********************************************
-      // Example configuration when using a webmap
-      // **********************************************
-
-      // example web maps:
-      // Portland Bike Map example from Boostrap Map demo pages, see
-      // http://esri.github.io/bootstrap-map-js/demo/dojo/webmap.html
-      itemId: '8e42e164d4174da09f61fe0d3f206641',
-
-      // SoCal running trails
-      // GPX tracks embeded in web map as feature collections
-      // itemId: 'cbb968b3854e4e4fac3f95c30ca41b38',
-
-      // Los Angeles Bike Paths - KML layer of bike paths
-      // itemId: '78ca84d1f2534d3496e63fa80240d4f3',
-
-      // web maps from ArcGIS JSAPI sample pages
-      // NOTE: both require a dijit theme (i.e. claro)
-      // to support the dojox/charting dijits in the popups
-
-      // Tapastry Segments - dynamic map servce w/ dojox/chart in popup
-      // itemId: '4778fee6371d4e83a22786029f30c7e1',
-
-      // mobile web map example, see:
-      // https://developers.arcgis.com/javascript/jssamples/mobile_arcgis.html
-      // itemId: '1e79439598494713b553f990a4040886',
-
-      // NOTE: this is the options sent to arcgisUtils.createMap()
-      // see: https://developers.arcgis.com/javascript/jsapi/esri.arcgis.utils-amd.html#createmap
-      options: {
-        mapOptions: {
-          basemap: 'topo',
-          sliderPosition: 'bottom-right'
-        }
-      },
-
-      // **********************************************
-      // Example configuration when NOT using a webmap
-      // and loading layers from the settings in this config
-      // **********************************************
-
-      // NOTE: this is the options sent to new Map()
-      // see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1
-      // options: {
-      //   basemap: 'gray',
-      //   center: [-122.4167, 37.7833],
-      //   zoom: 14,
-      //   sliderPosition: 'bottom-right'
-      // },
-
-      // operationalLayers: [{
-      //   type: 'feature',
-      //   url: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Earthquakes/Since_1970/MapServer/0',
-      //   title: 'Earthquakes around the world',
-      //   options: {
-      //     id: 'earthquake',
-      //     opacity: 1.0,
-      //     visible: true,
-      //     outFields: ['*'],
-      //     infoTemplate: new InfoTemplate('Earthquake', '${*}'),
-      //     mode: 0
-      //   }
-      // }, {
-      //   type: 'dynamic',
-      //   url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/MapServer',
-      //   title: 'SF 311',
-      //   options: {
-      //     id: 'sf311',
-      //     opacity: 0.5,
-      //     visible: true
-      //   }
-      // }],
-
-      // TODO: add basemaps
-      // basemaps: {},
-
-      // set the id of a node to place the legend
-      // comment this out if you don't want to show legend
-      legendNodeId: 'mapLegend',
-
-      // Add config parameters for each map widget you want to include
-      // The map reference will get appended to the options
-      // To accept default options just pass empty object {}
-      // NOTE: to change the position of these widgets, make changes in map.css
-      widgets: {
-        scalebar: {
-          // see https://developers.arcgis.com/javascript/jsapi/scalebar-amd.html#scalebar1
-        },
-        homeButton: {
-          // see: https://developers.arcgis.com/javascript/jsapi/homebutton-amd.html#homebutton1
-        },
-        locateButton: {
-          // see: https://developers.arcgis.com/javascript/jsapi/locatebutton-amd.html#locatebutton1
-        },
-        geocoder: {
-          // see https://developers.arcgis.com/javascript/jsapi/geocoder-amd.html#geocoder1
-          autoComplete: true,
-          arcgisGeocoder: {
-            placeholder: 'Address or Location'
+    // Feature Service 
+    citizenRequestLayerUrl: 'http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0',
+    // infoTemplate for reporting.
+    infoTemplate: {
+              title: '<b>Request ${objectid}</b>',
+              content: '<span class="infoTemplateContentRowLabel">Date: </span>' +
+                  '<span class="infoTemplateContentRowItem">${requestdate:DateFormat}</span><br><span class="infoTemplateContentRowLabel">Phone: </span>' +
+                  '<span class="infoTemplateContentRowItem">${phone:formatPhoneNumber}</span><br><span class="infoTemplateContentRowLabel">Name: </span>' +
+                  '<span class="infoTemplateContentRowItem">${name}</span><br><span class="infoTemplateContentRowLabel">Severity: </span>' +
+                  '<span class="infoTemplateContentRowItem">${severity:severityDomainLookup}</span><br><span class="infoTemplateContentRowLabel">Type: </span>' +
+                  '<span class="infoTemplateContentRowItem">${requesttype:requestTypeDomainLookup}</span><br><span class="infoTemplateContentRowLabel">Comments: </span>' +
+                  '<span class="infoTemplateContentRowItem">${comment}</span>'
+              },
+    //Severity Field Domain Value Dictionary        
+    severityFieldDomainCodedValuesDict: 
+             {   
+              '0': 'General Nuisance',
+              '1': 'Important To Resolve Soon',
+              '2': 'Critical Issue'
+             },
+    //Request Type Domain Code Value Dictionary
+    requestTypeFieldDomainCodedValuesDict:
+             {
+              '0': 'Abandoned Vehicle',
+              '1': 'Animal Services',
+              '2': 'Driveway Infraction',
+              '3': 'Flooding',
+              '4': 'Graffiti Removal',
+              '5': 'Homeless Nuisance',
+              '6': 'Illegal Dumping',
+              '7': 'Parking Violation',
+              '8': 'Plant/Tree Complaint',
+              '9': 'Pothole Obstruction',
+              '10': 'Roadway Danger',
+              '11': 'Sidewalk Danger',
+              '12': 'Streetlight Broken',
+              '13': 'Street Sign Missing/Damaged',
+              '14': 'Trash Removal',
+              '15': 'Water Leak',
+              '16': 'Yard Waste Removal'
+            },
+  //Map Options
+    mapOptions:
+          {
+            basemap:'topo',
+            center:[-117.1825, 34.0547],
+            zoom:14,
+            sliderPosition:null
           },
-          'class': 'geocoder'
-        }
-      }
-    },
-
-    // about modal
-    aboutModal: {
-      moreInfoUrl: 'https://github.com/Esri/dojo-bootstrap-map-js'
-    }
+  //Geocoder Options
+    geocoderOptions:
+          {
+            autoComplete: true,
+            arcgisGeocoder: {
+                placeholder: 'Address or Location'
+                  },
+           'class': 'geocoder'
+          },
+    //Legend Options      
+    legendOptions:
+          {
+          },
+    //locate button options      
+    locateButtonOptions:
+          {
+          }     
   };
+
 });

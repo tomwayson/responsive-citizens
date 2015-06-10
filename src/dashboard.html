@@ -154,16 +154,19 @@
   <script>
     require([
       'chartjs/Chart',
+
       'app/map',
+      'app/config',
+
       'dojo/domReady!'
-    ], function(Chart, mapUtils) {
+    ], function(Chart, mapUtils, config) {
 
       var severityChart, // pie chart
         requestTypeChart; // bar chart
 
       // TODO: get these from the feature layer on load
-      var severityFieldDomainCodedValuesDict = mapUtils.severityFieldDomainCodedValuesDict;
-      var requestTypeFieldDomainCodedValuesDict = mapUtils.requestTypeFieldDomainCodedValuesDict;
+      var severityFieldDomainCodedValuesDict = config.severityFieldDomainCodedValuesDict;
+      var requestTypeFieldDomainCodedValuesDict = config.requestTypeFieldDomainCodedValuesDict;
 
       // override chart defaults
       Chart.defaults.global.responsive = true;
@@ -176,6 +179,7 @@
       function initMap() {
         // create responsive map
         var map = mapUtils.createMap();
+        // set up feature layer popup
         var citizenRequestLayer = mapUtils.addFeatureLayer();
         citizenRequestLayer.on('update-end', function(layer) {
           // update charts when feature layer is refreshed
@@ -183,21 +187,6 @@
           updateCharts(citizenRequestLayer, map.extent);
         });
         map.addLayer(citizenRequestLayer);
-
-        // set up feature layer popup
-        /*var featureLayerInfoTemplate = new InfoTemplate();
-        featureLayerInfoTemplate.setTitle('mapUtils.config.infoTemplate.title');
-        var infoTemplateContent = mapUtils.config.infoTemplate.content;
-        featureLayerInfoTemplate.setContent(infoTemplateContent);
-        // NOTE: popup formatting functions must be globals
-        
-        var citizenRequestLayer = mapUtils.addFeatureLayer();
-        citizenRequestLayer.on('update-end', function(layer) {
-          // update charts when feature layer is refreshed
-          // (i.e. after map pan/zoom)
-          updateCharts(citizenRequestLayer, map.extent);
-        });
-        map.addLayer(citizenRequestLayer);*/
       }
 
       window.severityDomainLookup = function (value, key, data){
