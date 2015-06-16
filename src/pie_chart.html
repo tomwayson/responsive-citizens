@@ -2,11 +2,6 @@
 <head>
   <meta charset=utf-8 />
   <title>Cedar Quickstart</title>
-
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/vega/1.4.3/vega.min.js"></script> 
-<script type="text/javascript" src="http://esri.github.io/cedar/js/cedar.js"></script>
-
 </head>
 <body>
 
@@ -41,11 +36,7 @@
 
 <script src="http://js.arcgis.com/3.13/"></script>
 <script>
- //create a cedar chart using the known 'bar' type
- // this is the same as passing {"specification": "path/to/cedar/charts/bar.json"}
   require(['cedar'], function(Cedar){
-
-    
     //chart.override{};
     var chart = new Cedar({"specification": {
       "inputs": [
@@ -125,8 +116,6 @@
       
     }}); 
 
-
-
       var dataset = {
         "url":"http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0",
         "query": {
@@ -145,8 +134,6 @@
         }
       };
       chart.dataset = dataset;
-
-
       chart.show({
         elementId: "#chart",
         width: 600,
