@@ -15,12 +15,14 @@
   <div class="col-lg-12" id="chart"></div>
 </div>
 
+
 <script>
  //create a cedar chart using the known 'bar' type
   // this is the same as passing {"specification": "path/to/cedar/charts/bar.json"}
-  var chart = new Cedar({"type": "bar"});
+
+    var chart = new Cedar({"type": "bar"});
   //create the dataset w/ mappings
-  var dataset = {
+    var dataset = {
     "url":"http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0",
     "query": {
       "groupByFieldsForStatistics": "requesttype",
@@ -32,8 +34,8 @@
     },
     "mappings":{
       "sort": "requesttype",
-      "x": {"field":"requesttype","label":"ZIP Code"},
-      "y": {"field":"requesttype_count","label":"Total Students"}
+      "x": {"field":"requesttype","label":"request type"},
+      "y": {"field":"requesttype_count","label":"number"}
     }
   };
 
@@ -45,6 +47,11 @@
   chart.show({
     elementId: "#chart"
   });
+
+  
 </script>
+
+
+
 </body>
 </html>

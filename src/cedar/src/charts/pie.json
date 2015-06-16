@@ -1,24 +1,4 @@
-<html>
-<head>
-  <meta charset=utf-8 />
-  <title>Cedar Quickstart</title>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/vega/1.4.3/vega.min.js"></script>
-<script type="text/javascript" src="./src/cedar.js"></script>
-
-</head>
-<body>
-
-<div class="row">
-  <div class="col-lg-12" id="chart"></div>
-</div>
-
-<script>
- //create a cedar chart using the known 'bar' type
-  // this is the same as passing {"specification": "path/to/cedar/charts/bar.json"}
-  var chart = new Cedar({"specification": {
+{
   "inputs": [
     {"name": "y", "type": ["numeric","string"], "required": true},
     {"name": "label", "type": ["string"], "required": false},
@@ -48,11 +28,6 @@
         "name": "r",
         "type": "sqrt",
         "domain": {"data": "table", "field": "data.attributes.{y.field}"}
-      },
-      {
-        "name": "color",
-        "type": "ordinal",
-        "range": ["#DB0917", "#F5F12C", "#1409DB"]
       }
     ],
     "marks": [
@@ -69,10 +44,10 @@
             "stroke": {"value": "#fff"}
           },
           "update": {
-             "fill": {"scale":"color", "field":"y"}
+            "fill": {"value": "#0079c1"}
           },
           "hover": {
-            "fill": {"value": "#e9b6ea"}
+            "fill": {"value": "#29b6ea"}
           }
         }
       },
@@ -94,32 +69,4 @@
     ]
   }
   
-}});
-
-  var dataset = {
-    "url":"http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0",
-    "query": {
-      "groupByFieldsForStatistics": "severity",
-      "outStatistics": [{
-        "statisticType": "count", 
-        "onStatisticField": "severity", 
-        "outStatisticFieldName": "severity_count"
-      }]
-    }, 
-
-    "mappings":{
-      "label": {"field":"severity","label":"severity"},
-      "y": {"field":"severity_count","label":"severity_count"},
-      "radius": 270
-    }
-  };
-  chart.dataset = dataset;
-
-  chart.show({
-    elementId: "#chart",
-    width: 600,
-    height: 600
-  });
-</script>
-</body>
-</html>
+}

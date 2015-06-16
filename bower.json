@@ -29,6 +29,7 @@
     "util": "dojo-util#1.10.2",
     "dgrid": "0.3.16",
     "put-selector": "0.3.5",
-    "xstyle": "0.1.3"
+    "xstyle": "0.1.3",
+    "cedar": "https://github.com/Esri/cedar.git"
   }
 }
