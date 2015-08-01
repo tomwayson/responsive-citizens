@@ -42,6 +42,21 @@
     <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datetimepicker();
+                $("#datetimepicker1").on("dp.change", function (e) {
+                  console.log("e ", e.date._d);
+                  event_start = e.date._d;
+                });
+                //console.log("a", $('#datetimepicker1').val());
+            });
+    </script>
+
+    <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker2').datetimepicker();
+                $("#datetimepicker2").on("dp.change", function (e) {
+                  console.log("e ", e.date._d);
+                  event_end = e.date._d;
+                });
             });
     </script>
     <!-- /build -->
@@ -93,9 +108,11 @@
                 <span class="glyphicon glyphicon-map-marker"></span>&nbsp;<span class="hidden-xs">Publish an Event</span>&nbsp;<span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
-                <li><a data-value="2" href="#">Critical Issue</a></li>
-                <li><a data-value="0" href="#">General Nuisance</a></li>
-                <li><a data-value="1" href="#">Important To Resolve Soon</a></li>
+                <li><a data-value="0" href="#">Educational</a></li>
+                <li><a data-value="1" href="#">Entertainment</a></li>
+                 <li><a data-value="2" href="#">Food and Drinks</a></li>
+                 <li><a data-value="3" href="#">Outdoors</a></li>
+                 <li><a data-value="4" href="#">Special Events</a></li>
               </ul>
             </div>
 <!--             <div class="home-button">
@@ -146,28 +163,60 @@
             <h4 class="modal-title">Publish an event</h4>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+            <!--<div class="form-group">
               <label for="requesttype">Type</label>
               <select class="form-control" name="requesttype">
               </select>
-            </div>
+            </div>-->
             <div class="form-group">
               <label for="name">Name</label>
               <input type="email" class="form-control" name="name" placeholder="Enter name">
             </div>
             <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="email" class="form-control" name="phone" placeholder="Enter phone">
+              <label for="address">Address</label>
+              <input type="email" class="form-control" name="address" placeholder="Enter Address">
             </div>
             <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" name="email" placeholder="Enter email">
+              <label for="start_time">start time</label>
+              <div class="container">
+              <div class="row">
+                  <div class='col-sm-6'>
+                      <div class="form-group">
+                          <div class='input-group date' id='datetimepicker1'>
+                              <input id="event_event_id" type='text' class="form-control" />
+                              <span class="input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="comment">Comments</label>
-              <textarea class="form-control" name="comment" placeholder="Enter your comments here."></textarea>
             </div>
 
+            <div class="form-group">
+              <label for="end_time">end time</label>
+              <div class="container">
+              <div class="row">
+                  <div class='col-sm-6'>
+                      <div class="form-group">
+                          <div class='input-group date' id='datetimepicker2'>
+                              <input type='text' class="form-control" />
+                              <span id="cv" class="input-group-addon">
+                                  <span id = "dv" class="glyphicon glyphicon-calendar"></span>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" name="description" placeholder="Enter your comments here."></textarea>
+            </div>
+          <!--
             <div class="container">
               <div class="row">
                   <div class='col-sm-6'>
@@ -181,7 +230,7 @@
                       </div>
                   </div>
               </div>
-            </div>
+            </div>-->
             
             <button class="btn btn-success">Submit</button>
             <button class="btn btn-default">Cancel</button>
@@ -243,12 +292,6 @@
       };
     </script>
     <!-- NOTE: we're not using compact b/c we're using esri/dijit -->
-  
-    <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
-    </script>
 
 
     <!-- build:[src] dojo/dojo.js -->
