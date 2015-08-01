@@ -294,6 +294,24 @@
       </div>
     </div>
 
+    <script>
+      function myFunction(){
+        
+        var paraImg = document.createElement("span");
+        var DOM_img = document.createElement("img");
+        DOM_img.src = "http://graph.facebook.com/1814766772/picture?type=small";
+        var paraName = document.createElement("span");
+        var nodeName = document.createTextNode("Yuki Huang");
+        paraImg.appendChild(DOM_img);
+        paraName.appendChild(nodeName);
+        var element = document.getElementById("mm");
+        element.appendChild(paraImg);
+        element.appendChild(paraName);
+        
+        
+      }
+    </script>
+
     <!-- build:remove -->
     <!-- configure Dojo, load Esri JS, and kick off app -->
     <script>
