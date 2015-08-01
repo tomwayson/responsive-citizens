@@ -30,6 +30,7 @@
     "dgrid": "0.3.16",
     "put-selector": "0.3.5",
     "xstyle": "0.1.3",
-    "cedar": "https://github.com/Esri/cedar.git"
+    "cedar": "https://github.com/Esri/cedar.git",
+    "eonasdan-bootstrap-datetimepicker": "~4.15.35"
   }
 }

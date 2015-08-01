@@ -21,7 +21,8 @@ define([
   mapUtils, config
 ) {
   'use strict';
-
+  //dom.byId('datetimepicker1').datetimepicker();
+  
   // app globals
   var app = {};
   // feature
@@ -182,7 +183,7 @@ define([
   app.map = mapUtils.createMap('map', 'bottom-right');
   app.map.addLayer(app.citizenRequestLayer);
   //add legend
-  app.legend = mapUtils.addLegend(app.map);
+  //app.legend = mapUtils.addLegend(app.map);
   //add geocoder
   app.geocoder = mapUtils.addGeocoder(app.map);
   //add locationButton

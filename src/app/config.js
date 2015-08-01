@@ -1,7 +1,7 @@
 define([], function() {
   return {
     // Feature Service 
-    citizenRequestLayerUrl: 'http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0',
+    citizenRequestLayerUrl: 'http://services5.arcgis.com/qfyMgDMPesqltCji/arcgis/rest/services/event/FeatureServer/0',
     // infoTemplate for reporting.
     infoTemplate: {
               title: '<b>Request ${objectid}</b>',
