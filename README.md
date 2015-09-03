@@ -4,7 +4,9 @@ A responsive take on the [Attribute editing - mobile](https://developers.arcgis.
 
 [View it live](http://tomwayson.github.io/responsive-citizens/)
 
-This appliction was forked from [Dojo Bootstrap Map](//github.com/Esri/dojo-bootstrap-map-js), which is a configurable application template built with [Bootstrap Map](//github.com/Esri/bootstrap-map-js) and [Dojo Bootstrap](//github.com/xsokev/Dojo-Bootstrap) to create responsive mapping applications using [Bootstrap](//getbootstrap.com) components without the overhead of loading jQuery.
+This application was developed for the [Bootstrap: Taking Your Mapping UI and UX to the Next Level](http://video.esri.com/watch/4369/bootstrap-taking-your-mapping-ui-and-ux-to-the-next-level) talk given by @alaframboise and @tomwayson at Esri's [2015 International Developer Summit](http://proceedings.esri.com/library/userconf/devsummit15/). It is neither complete, nor configurable, but others have [used it as a starting point for their own responsive applications](https://github.com/csergent45/streetSigns).
+
+This appliction was forked from [Dojo Bootstrap Map](//github.com/Esri/dojo-bootstrap-map-js), which is a configurable application boilerplate built with [Bootstrap Map](//github.com/Esri/bootstrap-map-js) and [Dojo Bootstrap](//github.com/xsokev/Dojo-Bootstrap) to create responsive mapping applications using [Bootstrap](//getbootstrap.com) components without the overhead of loading jQuery.
 
 <!-- ![App Screenshot](https://raw.githubusercontent.com/tomwayson/responsive-citizens/master/screenshot.png) -->
 
