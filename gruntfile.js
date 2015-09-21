@@ -44,7 +44,7 @@ module.exports = function(grunt) {
     //Open default browser at the app
     open: {
       unbuilt: {
-        path: 'http://localhost:<%= connect.options.port %>/unbuilt.html'
+        path: 'http://localhost:<%= connect.options.port %>/'
       },
       build: {
         path: 'http://localhost:<%= connect.options.port %>/'
