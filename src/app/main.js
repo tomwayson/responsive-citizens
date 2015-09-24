@@ -57,7 +57,7 @@ define([
     app.requestTypeSelect.innerHTML = options.join('');
   };
 
-  
+
   // hide nav dropdown on mobile
   var hideDropdownNav = function(e) {
     if (query('.navbar-collapse.in').length > 0) {
@@ -160,7 +160,7 @@ define([
     // submit or cancel request and hide modal
     query('#attributesModal .btn').on('click', function(e) {
       var target = e.target;
-      if (target.innerText === 'Submit') {
+      if (target.innerHTML === 'Submit') {
         submitIncidentReport();
       }
       app.attributesModal.modal('hide');
