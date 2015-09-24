@@ -139,7 +139,8 @@ module.exports = function(grunt) {
         options: {
           base: 'dist'
         },
-        src: ['index.html', 'dashboard.html', 'app/css/**', 'dojo/dojo.js', 'dojo/resources/**', 'esri/images/**', 'esri/dijit/images/**', 'esri/dijit/font/**']
+        // NOTE: may need to add add'l nls folders as needed
+        src: ['index.html', 'dashboard.html', 'app/css/**', 'dojo/dojo.js', 'dojo/resources/**', 'esri/images/**', 'esri/dijit/images/**', 'esri/dijit/font/**', 'dojo/cldr/nls/**', 'dojo/nls/**', 'esri/nls/**']
       }
     }
   });
@@ -171,4 +172,6 @@ module.exports = function(grunt) {
   grunt.registerTask('slurp', ['clean:slurp', 'esri_slurp:dev']);
 
   grunt.registerTask('build', ['jshint', 'clean:build', 'dojo', 'processhtml', 'copy:build']);
+
+  grunt.registerTask('deploy', ['clean:deploy', 'gh-pages:dist']);
 };

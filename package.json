@@ -1,6 +1,6 @@
 {
   "name": "responsive-citizens",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A responsive take on the Attribute editing - mobile sample from Esri's ArcGIS API for JavaScript",
   "main": "gruntfile.js",
   "directories": {
