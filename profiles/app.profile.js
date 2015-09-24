@@ -87,7 +87,7 @@ var profile = {
         // otherwise they will be requested asyncronously
         'esri/layers/FeatureLayer'
       ],
-      includeLocales: ['en-us']
+      includeLocales: ['en-us','fr', 'de', 'es', 'it','ar','cs','da','et','fi','he','ja','ko','lv','lt','nl','nb','pl','pt-br','pt-pt','ro','ru','sv','th','tr','vi','zh-cn']
     }//,
 
     // In this demo application, we load `app/main` on the client-side, so here we could build a separate layer containing
