@@ -1,0 +1,48 @@
+{
+  "name": "cedar",
+  "homepage": "https://github.com/esri/cedar",
+  "authors": [
+    "Dave Bouwman <dave@davebouwman.com>"
+  ],
+  "description": "Charting for the ArcGIS platform",
+  "main": [
+    "src/cedar.js",
+    "src/charts/bar-horizontal.json",
+    "src/charts/bar.json",
+    "src/charts/bubble.json",
+    "src/charts/pie.json",
+    "src/charts/scatter.json",
+    "src/charts/time.json"
+  ],
+  "license": "Apache 2",
+  "private": true,
+  "ignore": [
+    "site",
+    "spec",
+    ".gitignore",
+    ".jshintrc",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "d3": "~3.5.2",
+    "vega": "~1.4.3"
+  },
+  "resolutions": {
+    "d3": "~3.5.2"
+  },
+  "devDependencies": {
+    "bootstrap-sass-official": "~3.3.4"
+  },
+  "_release": "2943fe2e0b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "2943fe2e0b6cb650ee71636ae978955cd258057a"
+  },
+  "_source": "https://github.com/Esri/cedar.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/Esri/cedar.git",
+  "_direct": true
+}

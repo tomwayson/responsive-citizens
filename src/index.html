@@ -8,8 +8,8 @@
     <meta name="author" content="Tom Wayson">
 
     <link rel="shortcut icon" href="./favicon.png">
-
-    <title>Citizen Request</title>
+	
+    <title>Event Map</title>
 
     <!-- dependency styles from CDN -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -18,9 +18,47 @@
     <link rel="stylesheet" type="text/css" href="//esri.github.io/bootstrap-map-js/dist/css/bootstrapmap.min.css">
     <!-- /build -->
 
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="moment/min/moment.min.js"></script>
+
+    <script type="text/javascript" src="eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+
     <!-- get app/built styles locally -->
     <!-- build:[href] app/css/main.css -->
     <link rel="stylesheet" href="app/css/app.css">
+
+
+    <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+                $("#datetimepicker1").on("dp.change", function (e) {
+                  console.log("e ", e.date._d);
+                  event_start = e.date._d;
+                });
+                //console.log("a", $('#datetimepicker1').val());
+            });
+    </script>
+
+    <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker2').datetimepicker();
+                $("#datetimepicker2").on("dp.change", function (e) {
+                  console.log("e ", e.date._d);
+                  event_end = e.date._d;
+                });
+            });
+    </script>
     <!-- /build -->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,7 +76,7 @@
           <span class="glyphicon glyphicon-info-sign"></span>
           <!-- <img src="http://esri.github.io/bootstrap-map-js/demo/images/brand.png" /> -->
           </a>
-          <a class="navbar-brand" href="#">Citizen Request</a>
+          <a class="navbar-brand" href="#"><img src='LeventLogo.png' left="600" width="64" height="32"></a>
           <button id="collapseToggleButton" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -48,11 +86,11 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="#feedback">Feedback</a></li>
-            <li><a href="dashboard.html">Dashboard</a></li>
+            <!--<li><a href="dashboard.html">Dashboard</a></li>-->
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="http://www.cityofredlands.org/">City of Redlands</a></li>
-            <li><a href="https://github.com/tomwayson/responsive-citizens">Source</a></li>
+            <li><a href="">Source</a></li>
             <li><a href="http://stackoverflow.com/search?q=esri+bootstrap">Support</a></li>
           </ul>
         </div>
@@ -67,12 +105,14 @@
           <div id="map">
             <div class="btn-group report-btn-group">
               <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <span class="glyphicon glyphicon-map-marker"></span>&nbsp;<span class="hidden-xs">Report an Incident</span>&nbsp;<span class="caret"></span>
+                <span class="glyphicon glyphicon-map-marker"></span>&nbsp;<span class="hidden-xs">Publish an Event</span>&nbsp;<span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
-                <li><a data-value="2" href="#">Critical Issue</a></li>
-                <li><a data-value="0" href="#">General Nuisance</a></li>
-                <li><a data-value="1" href="#">Important To Resolve Soon</a></li>
+                <li><a data-value="0" href="#">Educational</a></li>
+                <li><a data-value="1" href="#">Entertainment</a></li>
+                 <li><a data-value="2" href="#">Food and Drinks</a></li>
+                 <li><a data-value="3" href="#">Outdoors</a></li>
+                 <li><a data-value="4" href="#">Special Events</a></li>
               </ul>
             </div>
 <!--             <div class="home-button">
@@ -82,15 +122,15 @@
             <div id="locateButton" class="locate-button"></div>
             <div id="startEditAlert" class="alert alert-info alert-dismissible fade in start-edit-alert" style="display: none;" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-              Click the map to report an incident.
+              Click the map to publish an event.
             </div>
           </div>
         </div>
         <!-- responsive sidebar -->
         <div class="col-xs-12 col-sm-3 col-lg-2">
           <div id="sidebar">
-            <h4>Legend</h4>
-            <div id="legend"></div>
+            <!--<h4>Legend</h4>
+            <div id="legend"></div>-->
             <div id="basemapDropdown" class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
                 Set Basemap
@@ -107,8 +147,31 @@
                 <li role="presentation"><a  role="menuitem" tabindex="-1" data-name="osm" href="#">Open Street Map</a></li>
               </ul>
             </div>
-            <h4>About</h4>
-            <p>The responsive citizen request sample was designed to showcase a simple focused JavaScript responsive application where individuals may easily report incidents in their community using just their web browser.</p>
+            <p>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+				</fb:login-button>
+				
+				<div id='status'>
+				</div>
+				<div id="UserImg">	
+				</div>
+				<button id="fbLogout" onclick="fbLogout()">
+					<a class="fb_button fb_button_medium">
+						<span class="fb_button_text">Logout</span>
+					</a>
+				</button>
+			</p>
           </div>
         </div>
       </div>
@@ -120,30 +183,78 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Report an Incident</h4>
+            <h4 class="modal-title">Publish an event</h4>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+            <!--<div class="form-group">
               <label for="requesttype">Type</label>
               <select class="form-control" name="requesttype">
               </select>
-            </div>
+            </div>-->
             <div class="form-group">
               <label for="name">Name</label>
               <input type="email" class="form-control" name="name" placeholder="Enter name">
             </div>
             <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="email" class="form-control" name="phone" placeholder="Enter phone">
+              <label for="address">Address</label>
+              <input type="email" class="form-control" name="address" placeholder="Enter Address">
             </div>
             <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" name="email" placeholder="Enter email">
+              <label for="start_time">start time</label>
+              <div class="container">
+              <div class="row">
+                  <div class='col-sm-6'>
+                      <div class="form-group">
+                          <div class='input-group date' id='datetimepicker1'>
+                              <input id="event_event_id" type='text' class="form-control" />
+                              <span class="input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
+            </div>
+
             <div class="form-group">
-              <label for="comment">Comments</label>
-              <textarea class="form-control" name="comment" placeholder="Enter your comments here."></textarea>
+              <label for="end_time">end time</label>
+              <div class="container">
+              <div class="row">
+                  <div class='col-sm-6'>
+                      <div class="form-group">
+                          <div class='input-group date' id='datetimepicker2'>
+                              <input type='text' class="form-control" />
+                              <span id="cv" class="input-group-addon">
+                                  <span id = "dv" class="glyphicon glyphicon-calendar"></span>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" name="description" placeholder="Enter your comments here."></textarea>
+            </div>
+          <!--
+            <div class="container">
+              <div class="row">
+                  <div class='col-sm-6'>
+                      <div class="form-group">
+                          <div class='input-group date' id='datetimepicker1'>
+                              <input type='text' class="form-control" />
+                              <span class="input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>-->
+            
             <button class="btn btn-success">Submit</button>
             <button class="btn btn-default">Cancel</button>
           </div>
@@ -169,9 +280,13 @@
               <input type="email" class="form-control" name="email" placeholder="Enter email">
             </div>
             <div class="form-group">
-              <label for="comment">Comments</label>
+              <label for="comment">Description</label>
               <textarea class="form-control" name="comment" placeholder="Enter your comments here."></textarea>
             </div>
+
+            
+
+
             <button class="btn btn-primary">Submit</button>
             <button class="btn btn-default">Cancel</button>
           </div>
@@ -179,8 +294,127 @@
       </div>
     </div>
 
+    <script>
+      function myFunction(){
+        
+        var paraImg = document.createElement("span");
+        var DOM_img = document.createElement("img");
+        DOM_img.src = "http://graph.facebook.com/1814766772/picture?type=small";
+        var paraName = document.createElement("span");
+        var nodeName = document.createTextNode("Yuki Huang");
+        paraImg.appendChild(DOM_img);
+        paraName.appendChild(nodeName);
+        var element = document.getElementById("mm");
+        element.appendChild(paraImg);
+        element.appendChild(paraName);
+        
+        
+      }
+    </script>
+
     <!-- build:remove -->
     <!-- configure Dojo, load Esri JS, and kick off app -->
+    <script>
+  	  var user_id;
+	  var user_name;
+	  var user_page;
+	  var user_img;
+	  // This is called with the results from from FB.getLoginStatus().
+	  function statusChangeCallback(response) {
+	    console.log('statusChangeCallback');
+	    console.log(response);
+	    // The response object is returned with a status field that lets the
+	    // app know the current login status of the person.
+	    // Full docs on the response object can be found in the documentation
+	    // for FB.getLoginStatus().
+	    if (response.status === 'connected') {
+	      // Logged into your app and Facebook.
+	      testAPI();
+	    } else if (response.status === 'not_authorized') {
+	      // The person is logged into Facebook, but not your app.
+	      document.getElementById('status').innerHTML = 'Please log ' +
+	        'into this app.';
+	    } else {
+	      // The person is not logged into Facebook, so we're not sure if
+	      // they are logged into this app or not.
+	      document.getElementById('status').innerHTML = 'Please log ' +
+	        'into Facebook.';
+	    }
+	  }
+	
+	  // This function is called when someone finishes with the Login
+	  // Button.  See the onlogin handler attached to it in the sample
+	  // code below.
+	  function checkLoginState() {
+	    FB.getLoginStatus(function(response) {
+	      statusChangeCallback(response);
+	    });
+	  }
+	
+	  window.fbAsyncInit = function() {
+	  FB.init({
+	    appId      : '859801637443813',
+	    cookie     : true,  // enable cookies to allow the server to access 
+	                        // the session
+	    xfbml      : true,  // parse social plugins on this page
+	    version    : 'v2.2' // use version 2.2
+	  });
+	
+	  // Now that we've initialized the JavaScript SDK, we call 
+	  // FB.getLoginStatus().  This function gets the state of the
+	  // person visiting this page and can return one of three states to
+	  // the callback you provide.  They can be:
+	  //
+	  // 1. Logged into your app ('connected')
+	  // 2. Logged into Facebook, but not your app ('not_authorized')
+	  // 3. Not logged into Facebook and can't tell if they are logged into
+	  //    your app or not.
+	  //
+	  // These three cases are handled in the callback function.
+	
+	  FB.getLoginStatus(function(response) {
+	    statusChangeCallback(response);
+	  });
+	
+	  };
+	
+	  // Load the SDK asynchronously
+	  (function(d, s, id) {
+	    var js, fjs = d.getElementsByTagName(s)[0];
+	    if (d.getElementById(id)) return;
+	    js = d.createElement(s); js.id = id;
+	    js.src = "//connect.facebook.net/en_US/sdk.js";
+	    fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));
+	
+	  // Here we run a very simple test of the Graph API after login is
+	  // successful.  See statusChangeCallback() for when this call is made.
+	  
+	  function testAPI() {
+	    console.log('Welcome!  Fetching your information.... ');
+	    FB.api('/me', function(response) {
+	      user_id=response.id
+	      user_name=response.name
+	      user_page='http://www.facebook.com/'+user_id
+	      user_img='http://graph.facebook.com/'+user_id+'/picture?type=large'
+	      console.log('Successful login for: ' + response.id);
+	      document.getElementById('status').innerHTML =
+	      '<b>Hey '+user_name+', welcome to Event Map!</b>';
+	      document.getElementById('UserImg').innerHTML =
+	      ('<a href='+user_page+' target="_top"><img border="0" src='+user_img+' width="64" height="64" ></a>');
+	      // document.getElementById('UserName').innerHTML =('<a href='+user_page+' target="_top">'+user_name+'</a>');
+	      
+		  });
+		};
+		
+		function fbLogout() {
+	        FB.logout(function (response) {
+	            //Do what ever you want here when logged out like reloading the page
+	            window.location.reload();
+	        });
+	    }
+
+	</script>
     <script>
       window.dojoConfig = {
         async: true,
@@ -200,9 +434,8 @@
       };
     </script>
     <!-- NOTE: we're not using compact b/c we're using esri/dijit -->
-    <!-- /build -->
 
-    <!-- build:[src] dojo/dojo.js -->
+
     <script src="//js.arcgis.com/3.12compact"></script>
     <!-- /build -->
 

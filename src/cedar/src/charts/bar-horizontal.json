@@ -1,0 +1,116 @@
+{
+  "inputs": [
+    { "name": "count", "type": [ "numeric", "string" ], "required": false },
+    { "name": "group", "type": [ "string" ], "required": true }
+  ],
+  "query": {
+    "orderByFields": "{count.field}_SUM DESC",
+    "groupByFieldsForStatistics": "{group.field}",
+    "outStatistics": [{
+        "statisticType": "sum",
+        "onStatisticField": "{count.field}",
+        "outStatisticFieldName": "{count.field}_SUM"
+    }]
+  },
+  "template":{
+    "padding": "strict",
+    "axes": [
+      {
+        "type": "x",
+        "scale": "x",
+        "titleOffset": 45,
+        "title": "{count.label}",
+        "properties": {
+          "title": {
+            "fontSize": {"value": 15},
+            "fill": {"value": "#999"},
+            "fontWeight": {"value": "bold"}
+          },
+          "axis": {
+             "stroke": {"value": "#dbdad9"},
+             "strokeWidth": {"value": 1.5}
+          },
+          "ticks": {
+             "stroke": {"value": "#dbdad9"}
+          },
+          "labels": {
+            "fill": {"value": "#999"},
+            "angle": {"value": 0},
+            "baseline": {"value": "middle"}
+          }
+        }
+      },
+      {
+        "type": "y",
+        "scale": "y",
+        "titleOffset": 25,
+        "title": "{group.label}",
+        "properties": {
+          "title": {
+            "fontSize": {"value": 15},
+            "fill": {"value": "#999"},
+            "fontWeight": {"value": "bold"}
+          },
+          "axis": {
+             "stroke": {"value": "#dbdad9"},
+             "strokeWidth": {"value": 1.5}
+          },
+          "ticks": {
+             "stroke": {"value": "#dbdad9"}
+          },
+          "labels": {
+            "fill": {"value": "#999"},
+            "angle": {"value": 0},
+            "baseline": {"value": "middle"}
+          }
+        }
+      }      
+    ],
+    "data": [
+      {
+        "name": "table",
+        "format": {"property": "features"}
+      }
+    ],    
+    "marks": [
+      {
+        "from": {"data": "table"},
+        "properties": {
+          "enter": {
+            "height": {"band": true, "offset": -1, "scale": "y"},
+            "y": {"scale": "y", "field": "data.attributes.{group.field}"},
+            "x2": {"scale": "x", "field": "data.attributes.{query.outStatistics.0.outStatisticFieldName}"},
+            "x": {"scale": "x", "value": 0 }
+          },
+          "hover": {
+            "fill": {"value": "#29b6ea"}
+          },
+          "update": {
+            "fill": {"value": "#0079c1"}
+          }
+        },
+        "type": "rect"
+      }
+    ],    
+    "scales": [
+      {
+        "domain": {
+          "data": "table",
+          "field": "data.attributes.{group.field}"
+        },
+        "name": "y",
+        "range": "height",
+        "type": "ordinal"
+      },
+      {
+        "domain": {
+          "data": "table",
+          "field": "data.attributes.{query.outStatistics.0.outStatisticFieldName}"
+        },
+        "name": "x",
+        "nice": true,
+        "range": "width"
+      }
+    ]
+  }
+}

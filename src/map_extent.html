@@ -1,0 +1,209 @@
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Cedar Quickstart</title>
+
+<link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css">  
+<style>
+  #chart {
+    margin-bottom:50px;
+  }
+  #chart canvas {
+    margin: auto;
+    display: block;
+  }
+</style>
+
+
+<script>
+    window.dojoConfig = {
+    async: true,
+    packages: [
+      {
+        name: 'd3',
+        location: 'http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5',
+        main: 'd3.min'
+      }, {
+        name: 'topojson',
+        location: 'http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19',
+        main: 'topojson.min'
+      }, {
+        name: 'vega',
+        location: 'http://cdnjs.cloudflare.com/ajax/libs/vega/1.4.3',
+        main: 'vega.min'
+      }, {
+        name: 'cedar',
+        location: 'http://esri.github.io/cedar/js',
+        main: 'cedar'
+      }
+    ]
+  };
+</script>
+
+<script src="http://js.arcgis.com/3.13/"></script>
+<script>
+ //create a cedar chart using the known 'bar' type
+ // this is the same as passing {"specification": "path/to/cedar/charts/bar.json"}
+   require(["cedar", "esri/map", "esri/layers/FeatureLayer", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol",
+    "esri/renderers/SimpleRenderer",  "esri/renderers/UniqueValueRenderer", "esri/Color", "dojo/domReady!"], function(Cedar, Map, FeatureLayer, 
+       SimpleMarkerSymbol, SimpleLineSymbol, SimpleRenderer, UniqueValueRenderer, Color) { 
+
+    var defaultSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 9,
+      new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+      new Color([198,12,70,1]), 1),
+      new Color([248,187,37,0.9]));
+
+    var rend = new SimpleRenderer(defaultSymbol);
+
+    var featureLayer = new FeatureLayer("http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0",{
+      mode: FeatureLayer.SNAPSHOT,
+      outFields: ["*"]
+    });
+
+    //create esri map
+    var map = new Map("map", {
+      center: [-99, 38.9],
+      zoom: 4,
+      basemap: "topo",
+      smartNavigation: false
+    });
+
+    map.on('load', function() {
+      map.disableScrollWheelZoom();
+    });
+
+    map.on('extent-change', function() {
+      onExtentChanged();
+    });
+
+
+    window.map = map;
+
+    featureLayer.setRenderer(rend);
+    map.addLayer(featureLayer);
+
+    var chart = new Cedar({"specification": {
+      "inputs": [
+        {"name": "y", "type": ["numeric","string"], "required": true},
+        {"name": "label", "type": ["string"], "required": false},
+        {"name": "radius", "type": ["numeric"], "required": true}
+      ],
+      "template":{
+        "padding": "strict",
+        "data": [
+          {
+            "name": "table",
+            "format": {
+              "property": "features"
+            },
+            "transform": [
+              {"type": "pie", "value": "data.attributes.{y.field}"},
+              {"type": "formula", "field": "hyp", "expr": "{radius}"},
+              {"type": "formula", "field": "theta", "expr": "d.startAngle + 0.5 *(d.endAngle - d.startAngle) - 1.57079633"},
+              {"type": "formula", "field": "x_mid", "expr": "{radius} * 2"},
+              {"type": "formula", "field": "y_mid", "expr": "{radius} * 2"},
+              {"type": "formula", "field": "x", "expr": "d.x_mid + (d.hyp * Math.cos(d.theta))"},
+              {"type": "formula", "field": "y", "expr": "d.y_mid + (d.hyp * Math.sin(d.theta))"}          
+            ]
+          }
+        ],
+        "scales": [
+          {
+            "name": "r",
+            "type": "sqrt",
+            "domain": {"data": "table", "field": "data.attributes.{y.field}"}
+          },
+          {
+            "name": "color",
+            "type": "ordinal",
+            "range": ["#DB0917", "#F5F12C", "#1409DB"]
+          }
+        ],
+        "marks": [
+          {
+            "type": "arc",
+            "from": {"data": "table"},
+            "properties": {
+              "enter": {
+                "x": {"group": "width"},
+                "y": {"group": "height"},
+                "startAngle": {"field": "startAngle"},
+                "endAngle": {"field": "endAngle"},
+                "outerRadius": {"value": "{radius}"},
+                "stroke": {"value": "#fff"}
+              },
+              "update": {
+                 "fill": {"scale":"color", "field":"y"}
+              },
+              "hover": {
+                "fill": {"value": "#e9b6ea"}
+              }
+            }
+          },
+          {
+            "type": "text",
+            "from": {"data": "table"},
+            "properties": {
+              "enter": {
+                "fill": {"value": "#fff"},
+                "y": {"field": "y", "mult": 0.6},
+                "x": {"field": "x", "mult": 0.6},
+                "fill": {"value": "#fff"},
+                "align": {"value": "center"},
+                "baseline": {"value": "middle"},
+                "text": {"field": "data.attributes.{label.field}"}
+              }
+            }
+          }
+        ]
+      }
+      
+    }}); 
+
+
+
+      var dataset = {
+        "url":"http://sampleserver5.arcgisonline.com/ArcGIS/rest/services/LocalGovernment/CitizenRequests/FeatureServer/0",
+        "query": {
+          "groupByFieldsForStatistics": "severity",
+          "outStatistics": [{
+            "statisticType": "count", 
+            "onStatisticField": "severity", 
+            "outStatisticFieldName": "severity_count"
+          }]
+        }, 
+
+        "mappings":{
+          "label": {"field":"severity","label":"severity"},
+          "y": {"field":"severity_count","label":"severity_count"},
+          "radius": 270
+        }
+      };
+      chart.dataset = dataset;
+
+    //create and render a chart
+    chart.show({
+      'elementId': '#chart'
+    });
+    window.chart = chart;
+
+    function onExtentChanged(){
+      var extent = map.extent;
+      extent = JSON.stringify(extent);
+      chart.dataset.query.geometry = extent;
+      chart.update();
+    }
+
+
+  });
+  
+</script>
+</head>
+<body>
+
+<div id="map"></div>
+<div id="chart"></div>
+
+
+</body>
+</html>

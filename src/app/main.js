@@ -21,7 +21,8 @@ define([
   mapUtils, config
 ) {
   'use strict';
-
+  //dom.byId('datetimepicker1').datetimepicker();
+  
   // app globals
   var app = {};
   // feature
@@ -54,7 +55,7 @@ define([
         options.push('<option value="' + key + '">' + app.requestTypeFieldDomainCodedValuesDict[key] + '</option>');
       }
     }
-    app.requestTypeSelect.innerHTML = options.join('');
+    //app.requestTypeSelect.innerHTML = options.join('');
   };
 
 
@@ -108,10 +109,16 @@ define([
     query('#attributesModal input, #attributesModal select, #attributesModal textarea').forEach(function (formInput) {
       attributes[formInput.name] = formInput.value;
     });
-    attributes.requesttype = parseInt(attributes.requesttype, 10);
+    //attributes.requesttype = parseInt(attributes.requesttype, 10);
     attributes.requestdate = Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(),
     currentDate.getUTCDate(), currentDate.getUTCHours(), currentDate.getUTCMinutes(),
     currentDate.getUTCSeconds(), 0);
+
+    attributes.start_time = event_start;
+    attributes.end_time = event_end;
+
+    console.log(event_start);
+
     graphic.setAttributes(attributes);
     stopCaptureRequest();
     // console.log(attributes);
@@ -182,7 +189,7 @@ define([
   app.map = mapUtils.createMap('map', 'bottom-right');
   app.map.addLayer(app.citizenRequestLayer);
   //add legend
-  app.legend = mapUtils.addLegend(app.map);
+  //app.legend = mapUtils.addLegend(app.map);
   //add geocoder
   app.geocoder = mapUtils.addGeocoder(app.map);
   //add locationButton
